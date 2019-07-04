@@ -1,0 +1,2 @@
+{"update_id":13548875,
+"message":{"message_id":1225,"from":{"id":515780627,"is_bot":false,"first_name":"Januar","last_name":"Wicaksono","username":"januarwicaksono","language_code":"en"},"chat":{"id":515780627,"first_name":"Januar","last_name":"Wicaksono","username":"januarwicaksono","type":"private"},"date":1562146869,"text":"/showreport","entities":[{"offset":0,"length":11,"type":"bot_command"}]}}
