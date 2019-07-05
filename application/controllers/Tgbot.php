@@ -12,9 +12,9 @@ use unreal4u\TelegramAPI\Telegram\Types\Custom\InputFile;
 class Tgbot extends CI_Controller
 {
 
-    private $_BOT_TOKEN = '824688362:AAG4ZhbOQuZ2In7MVxR8-Y1JMM4hL5wxyLY';
-    private $_BOT_USERNAME = '@bri16_bot';
-    private $_NGROK = 'https://8a7632be.ngrok.io';
+    private $_BOT_TOKEN = '';
+    private $_BOT_USERNAME = '';
+    private $_NGROK = '';
 
     public function __construct()
     {
