@@ -21,7 +21,8 @@ class Tgbot_model extends CI_Model {
     private function _check_user($datas)
     {
         $query = $this->db->get_where('tbl_tg_session', [
-            'user_id' => $datas['message']['from']['id']
+            'user_id' => $datas['message']['from']['id'],
+            'chat_id' => $datas['message']['chat']['id']
         ]);
         
 
@@ -36,6 +37,7 @@ class Tgbot_model extends CI_Model {
     {
         $query = $this->db->get_where('tbl_tg_session', [
             'user_id' => $datas['message']['from']['id'],
+            'chat_id' => $datas['message']['chat']['id'],
         ]);
 
         if ($query->num_rows() > 0) {
@@ -49,6 +51,7 @@ class Tgbot_model extends CI_Model {
     {
         $query = $this->db->get_where('tbl_tg_session', [
             'user_id' => $datas['message']['from']['id'],
+            'user_id' => $datas['message']['chat']['id'],
             'status' => 1,
             'step' => null
         ]);
@@ -64,6 +67,7 @@ class Tgbot_model extends CI_Model {
     {
         $query = $this->db->get_where('tbl_tg_session', [
             'user_id' => $datas['message']['from']['id'],
+            'chat_id' => $datas['message']['chat']['id'],
             'status' => 0
         ]);
 
@@ -78,9 +82,9 @@ class Tgbot_model extends CI_Model {
     {
         $this->db->where([
             'user_id' => $datas['message']['from']['id'],
+            'chat_id' => $datas['message']['chat']['id'],
             'status' => 0
         ]);
-        // $this->db->where('step IS NOT NULL');
         $query = $this->db->get('tbl_tg_session');
 
         if ($query->num_rows() > 0) {
@@ -94,10 +98,24 @@ class Tgbot_model extends CI_Model {
     {
         $this->db->where([
             'user_id' => $datas['message']['from']['id'],
+            'chat_id' => $datas['message']['chat']['id'],
             'status' => 1
         ]);
         $this->db->where('step IS NOT NULL');
         $query = $this->db->get('tbl_tg_session');
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return;
+        }
+    }
+
+    public function get_chat($datas)
+    {
+        $query = $this->db->get_where('tbl_tg_list_chat',[
+            'chat_id' => $datas['message']['chat']['id']
+        ]);
 
         if ($query->num_rows() > 0) {
             return $query->row();
@@ -111,6 +129,9 @@ class Tgbot_model extends CI_Model {
         $this->db->insert('tbl_tg_session', [
             'user_id' => $datas['message']['from']['id'],
             'chat_id' => $datas['message']['chat']['id'],
+            'firstname' => $datas['message']['from']['first_name'],
+            'lastname' => $datas['message']['from']['last_name'],
+            'username' => $datas['message']['from']['username'],
             'step' => null,
             'status' => 0,
             'created_at' => date('Y-m-d H:i:s'),
@@ -139,7 +160,6 @@ class Tgbot_model extends CI_Model {
                 'status' => 0,
                 'updated_at' => date('Y-m-d H:i:s')
             ], ['user_id' => $datas['message']['from']['id']]);
-
         }
     }
 
